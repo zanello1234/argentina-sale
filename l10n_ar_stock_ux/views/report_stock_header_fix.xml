@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_header_logo_fix" inherit_id="l10n_ar_stock.custom_header">
+        <xpath expr="//img[@t-if='header_address.image_1920']" position="replace">
+            <img
+                t-if="header_address.logo"
+                t-att-src="image_data_uri(header_address.logo)"
+                style="max-height: 45px;"
+                alt="Logo"
+            />
+        </xpath>
+    </template>
+</odoo>
