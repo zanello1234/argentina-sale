@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="custom_header_logo_fix" inherit_id="l10n_ar_stock.custom_header">
+        <!-- El logo del header sale de header_address.logo, no del deprecado
+             image_1920. El xpath matchea las dos formas a propósito: l10n_ar_ux
+             (fork de odoo-argentina, commit 1bab95ff) hace el mismo reemplazo, y
+             según el orden de carga de módulos este parche puede encontrar el img
+             todavía con image_1920 o ya con logo. Si sólo buscara image_1920,
+             cuando l10n_ar_ux aplica primero el xpath no matchea nada y el build
+             muere con ParseError. Aceptando ambas, el reemplazo es idempotente e
+             independiente del orden de carga. -->
         <xpath
-            expr="//img[contains(@t-if, 'header_address.image_1920') or contains(@t-att-src, 'header_address.image_1920')]"
+            expr="//img[contains(@t-att-src, 'header_address.image_1920') or contains(@t-att-src, 'header_address.logo')]"
             position="replace"
         >
             <img
