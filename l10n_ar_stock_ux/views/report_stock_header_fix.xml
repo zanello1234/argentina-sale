@@ -13,9 +13,13 @@
             expr="//img[contains(@t-att-src, 'header_address.image_1920') or contains(@t-att-src, 'header_address.logo')]"
             position="replace"
         >
+            <!-- header_address es un res.partner: tiene image_1920, NO logo (logo
+                 es de res.company). Se toma la imagen del partner con fallback al
+                 logo de la compañía, igual que en l10n_ar_ux, para que los dos
+                 parches dejen el mismo resultado. -->
             <img
-                t-if="header_address.logo"
-                t-att-src="image_data_uri(header_address.logo)"
+                t-if="header_address.image_1920 or o.company_id.logo"
+                t-att-src="image_data_uri(header_address.image_1920 or o.company_id.logo)"
                 style="max-height: 45px;"
                 alt="Logo"
             />
